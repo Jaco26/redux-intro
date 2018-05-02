@@ -3,26 +3,29 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './components/App/App';
 // createStore is a function
-import { createStore, combineReducers } from 'redux';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
 // Provider is a component 
 import { Provider } from 'react-redux';
+import logger from 'redux-logger';
+
+
+
 import registerServiceWorker from './registerServiceWorker';
+
 
 
 // This is a reducer
 // It runs with an action –– an object with a key of "type"
 // actions are "dispatched"
 const firstReducer = (state = 0, action) => {
-    // console.log(`Hey! I'm a reducer!`);
-    if(action.type == 'BUTTON_ONE') {
-        console.log(state);
-        const random = () => Math.random() * 255;
-        // document.body.style.backgroundColor = `rgb(${random()}, ${random()}, ${random()} )`;
-        return state += 1;
-    } else if (action.type == 'BUTTON_TWO') {
-        return state -= 1;
+    switch (action.type) {
+        case 'BUTTON_ONE':
+            return state += 1;
+        case 'BUTTON_TWO':
+            return state -= 1;
+        default: 
+            return state;
     }
-    return state;
 }
 
 const secondReducer = (state = 0, action) => {
@@ -56,8 +59,8 @@ const storeInstance = createStore(
         firstReducer,
         secondReducer,
         elementReducer
-    })
-   
+    }),
+    applyMiddleware(logger)
    
 );
 

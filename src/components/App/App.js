@@ -61,7 +61,10 @@ class App extends Component {
 
   render() {
     console.log('THIS.STATE: render() is called when "state" OR "props" are changed',  this.state);
-    
+    let someElement;
+    if(this.props.reduxState.firstReducer !== 0) {
+      someElement = <p> {this.props.reduxState.firstReducer} </p>
+    }
     return (
       <div className="App">
 
@@ -75,6 +78,7 @@ class App extends Component {
         <input onChange={this.handleChangeFor('newElement')} value={this.state.newElement} type="text" placeholder="new element" />
         <button onClick={this.handleNewElementSubmit}>Submit New Element!</button>
 
+        {someElement}
 
       </div>
     );

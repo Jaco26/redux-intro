@@ -8,6 +8,13 @@ import { connect } from 'react-redux';
 
 
 class App extends Component {
+  constructor (props) {
+    super(props);
+    this.state = {
+      newElement: ''
+    }
+  }
+
   // Arrow functions takes away the need to Bind
   handleClick = () => {
     // dispatch needs an Action: just an object with:
@@ -26,6 +33,31 @@ class App extends Component {
     })
   }
 
+  handleAddStar = () => {
+    this.props.dispatch({
+      type: 'ADD_STAR',
+      payload: {
+        name: 'Gacrux',
+        diameter: 50,
+      }
+    });
+  }
+
+  handleChangeFor = (key) => (event) => {
+    this.setState({
+      // ...this.state.newElement,
+      newElement: event.target.value,
+    });
+  } 
+
+  handleNewElementSubmit = (event) => {
+    event.preventDefault();
+    this.props.dispatch({
+      type: 'ADD_NEW_ELEMENT',
+      payload: this.state.newElement,
+    });
+  }
+
   
 
   render() {
@@ -33,6 +65,11 @@ class App extends Component {
       <div className="App">
         <button onClick={this.handleClick} >Button One!</button>
         <button onClick={this.handleSecondClick}>Button Two!</button>
+        <button onClick={this.handleAddStar}>Add Star!</button>
+        {/* Add an imput and button for the new element, (hydrogen, helium, etc) 
+        and send it to redux Pass an element String as the payload */}
+        <input onChange={this.handleChangeFor('newElement')} value={this.state.newElement} type="text" placeholder="new element" />
+        <button onClick={this.handleNewElementSubmit}>Submit New Element!</button>
       </div>
     );
   }

@@ -14,18 +14,29 @@ import registerServiceWorker from './registerServiceWorker';
 // actions are "dispatched"
 const firstReducer = (state, action) => {
     // console.log(`Hey! I'm a reducer!`);
-    const random = () => Math.random() * 255;
-    document.body.style.backgroundColor = `rgb(${random()}, ${random()}, ${random()} )`;
-    return {};
+    if(action.type == 'BUTTON_ONE') {
+        const random = () => Math.random() * 255;
+        document.body.style.backgroundColor = `rgb(${random()}, ${random()}, ${random()} )`;
+    }
+   return {};
 }
 
 const secondReducer = (state, action) => {
-    // console.log('I am the second reducer');
+   
+    if(action.type == 'BUTTON_TWO'){
+         console.log('I am the second reducer and BUTTON_TWO DID IT');
+
+    }
     return {};
 }
 
 const thirdReducer = (state, action) => {
-    console.log('THIS IS "ACTION":', action);
+    if(action.type == 'ADD_NEW_ELEMENT') {
+        console.log('THIS IS "ACTION":', action);
+        console.log('3rd Reducer!');
+    }
+
+    
     return {};
 }
 

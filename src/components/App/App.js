@@ -43,10 +43,9 @@ class App extends Component {
     });
   }
 
-  handleChangeFor = (key) => (event) => {
+  handleChangeFor = () => (event) => {
     this.setState({
-      // ...this.state.newElement,
-      newElement: event.target.value,
+      newElement: event.target.value
     });
   } 
 
@@ -61,8 +60,13 @@ class App extends Component {
   
 
   render() {
+    console.log('THIS.STATE: render() is called when "state" OR "props" are changed',  this.state);
+    
     return (
       <div className="App">
+
+        <pre> {JSON.stringify(this.props.reduxState)} </pre>
+
         <button onClick={this.handleClick} >Button One!</button>
         <button onClick={this.handleSecondClick}>Button Two!</button>
         <button onClick={this.handleAddStar}>Add Star!</button>
@@ -70,14 +74,23 @@ class App extends Component {
         and send it to redux Pass an element String as the payload */}
         <input onChange={this.handleChangeFor('newElement')} value={this.state.newElement} type="text" placeholder="new element" />
         <button onClick={this.handleNewElementSubmit}>Submit New Element!</button>
+
+
       </div>
     );
   }
 }
 
+
+const mapReduxStateToProps = (reduxState) => {
+  return {
+    reduxState
+  }
+}
+
 // connect is a function that returns another function that 
 // we then pass our App into
-export default connect()(App);
+export default connect(mapReduxStateToProps)(App);
 
 
 /*

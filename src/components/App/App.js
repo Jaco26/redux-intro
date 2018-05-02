@@ -8,23 +8,31 @@ import { connect } from 'react-redux';
 
 
 class App extends Component {
-  constructor (props) {
-    super(props)
-  }
-
   // Arrow functions takes away the need to Bind
   handleClick = () => {
     // dispatch needs an Action: just an object with:
     // at minimum, a key of "type"
+    this.props.dispatch(
+      // THIS OBJECT IS THE ACTION
+      {
+        type: 'BUTTON_ONE'
+      }
+    )
+  };
+
+  handleSecondClick = () => {
     this.props.dispatch({
-      type: 'BUTTON_ONE'
-    });
+      type: 'BUTTON_TWO'
+    })
   }
+
+  
 
   render() {
     return (
       <div className="App">
         <button onClick={this.handleClick} >Button One!</button>
+        <button onClick={this.handleSecondClick}>Button Two!</button>
       </div>
     );
   }
